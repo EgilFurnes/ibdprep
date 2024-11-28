@@ -1,83 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IBD Prep Quiz</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        .question-container {
-            margin: 20px auto;
-            max-width: 500px;
-        }
-        .choice {
-            display: block;
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .choice:hover {
-            background-color: #e0e0e0;
-        }
-    </style>
-</head>
-<body>
-    <h1>IBD Prep Quiz</h1>
-    <div class="question-container">
-        <p id="question">Loading question...</p>
-        <div id="choices"></div>
-    </div>
-    <script>
-        let questions = [];
-        let currentQuestionIndex = 0;
+let questions = [];
+let currentQuestionIndex = 0;
 
-        // Fetch questions from the JSON file
-        async function loadQuestions() {
-            try {
-                const response = await fetch("questions.json");
-                questions = await response.json();
-                displayQuestion();
-            } catch (error) {
-                console.error("Error loading questions:", error);
-                document.getElementById("question").textContent = "Failed to load questions.";
-            }
-        }
+// Fetch questions from the JSON file
+async function loadQuestions() {
+    try {
+        const response = await fetch("questions.json"); // Ensure this matches the path
+        questions = await response.json();
+        displayQuestion();
+    } catch (error) {
+        console.error("Error loading questions:", error);
+        document.getElementById("question").textContent = "Failed to load questions.";
+    }
+}
 
-        // Display a question
-        function displayQuestion() {
-            if (questions.length === 0) {
-                document.getElementById("question").textContent = "No questions available.";
-                return;
-            }
-            const currentQuestion = questions[currentQuestionIndex];
-            document.getElementById("question").textContent = currentQuestion.question;
-            const choicesDiv = document.getElementById("choices");
-            choicesDiv.innerHTML = ""; // Clear previous choices
-            currentQuestion.choices.forEach(choice => {
-                const button = document.createElement("button");
-                button.textContent = choice;
-                button.className = "choice";
-                button.onclick = () => checkAnswer(choice, currentQuestion.answer);
-                choicesDiv.appendChild(button);
-            });
-        }
+// Display a question
+function displayQuestion() {
+    if (questions.length === 0) {
+        document.getElementById("question").textContent = "No questions available.";
+        return;
+    }
+    const currentQuestion = questions[currentQuestionIndex];
+    document.getElementById("question").textContent = currentQuestion.question;
+    const choicesDiv = document.getElementById("choices");
+    choicesDiv.innerHTML = ""; // Clear previous choices
+    currentQuestion.choices.forEach(choice => {
+        const button = document.createElement("button");
+        button.textContent = choice;
+        button.className = "choice";
+        button.onclick = () => checkAnswer(choice, currentQuestion.answer);
+        choicesDiv.appendChild(button);
+    });
+}
 
-        // Check the user's answer
-        function checkAnswer(selected, correct) {
-            alert(selected === correct ? "Correct!" : "Wrong!");
-            currentQuestionIndex = (currentQuestionIndex + 1) % questions.length; // Loop back to start
-            displayQuestion();
-        }
+// Check the user's answer
+function checkAnswer(selected, correct) {
+    alert(selected === correct ? "Correct!" : "Wrong!");
+    currentQuestionIndex = (currentQuestionIndex + 1) % questions.length; // Loop back to start
+    displayQuestion();
+}
 
-        // Load questions on page load
-        document.addEventListener("DOMContentLoaded", loadQuestions);
-    </script>
-</body>
-</html>
+// Load questions on page load
+document.addEventListener("DOMContentLoaded", loadQuestions);
+
+
