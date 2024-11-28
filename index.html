@@ -35,34 +35,49 @@
         <div id="choices"></div>
     </div>
     <script>
-        let currentQuestion = 0;
+        let questions = [];
+        let currentQuestionIndex = 0;
 
-        async function fetchQuestion() {
-            const response = await fetch("https://ibdprep.herokuapp.com/question/" + currentQuestion);
-            const data = await response.json();
-            displayQuestion(data);
+        // Fetch questions from the JSON file
+        async function loadQuestions() {
+            try {
+                const response = await fetch("questions.json");
+                questions = await response.json();
+                displayQuestion();
+            } catch (error) {
+                console.error("Error loading questions:", error);
+                document.getElementById("question").textContent = "Failed to load questions.";
+            }
         }
 
-        function displayQuestion(data) {
-            document.getElementById("question").textContent = data.question;
+        // Display a question
+        function displayQuestion() {
+            if (questions.length === 0) {
+                document.getElementById("question").textContent = "No questions available.";
+                return;
+            }
+            const currentQuestion = questions[currentQuestionIndex];
+            document.getElementById("question").textContent = currentQuestion.question;
             const choicesDiv = document.getElementById("choices");
             choicesDiv.innerHTML = ""; // Clear previous choices
-            data.choices.forEach(choice => {
+            currentQuestion.choices.forEach(choice => {
                 const button = document.createElement("button");
                 button.textContent = choice;
                 button.className = "choice";
-                button.onclick = () => checkAnswer(choice, data.answer);
+                button.onclick = () => checkAnswer(choice, currentQuestion.answer);
                 choicesDiv.appendChild(button);
             });
         }
 
+        // Check the user's answer
         function checkAnswer(selected, correct) {
             alert(selected === correct ? "Correct!" : "Wrong!");
-            currentQuestion++;
-            fetchQuestion();
+            currentQuestionIndex = (currentQuestionIndex + 1) % questions.length; // Loop back to start
+            displayQuestion();
         }
 
-        document.addEventListener("DOMContentLoaded", fetchQuestion);
+        // Load questions on page load
+        document.addEventListener("DOMContentLoaded", loadQuestions);
     </script>
 </body>
 </html>
