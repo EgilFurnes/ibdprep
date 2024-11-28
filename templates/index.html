@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBD Prep Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .question-container {
+            margin: 20px auto;
+            max-width: 500px;
+        }
+        .choice {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .choice:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <h1>IBD Prep Quiz</h1>
+    <div class="question-container">
+        <p id="question">Loading question...</p>
+        <div id="choices"></div>
+    </div>
+    <script>
+        let currentQuestion = 0;
+
+        async function fetchQuestion() {
+            const response = await fetch(`/question/${currentQuestion}`);
+            const data = await response.json();
+            displayQuestion(data);
+        }
+
+        function displayQuestion(data) {
+            document.getElementById("question").textContent = data.question;
+            const choicesDiv = document.getElementById("choices");
+            choicesDiv.innerHTML = ""; // Clear previous choices
+            data.choices.forEach((choice, index) => {
+                const button = document.createElement("button");
+                button.textContent = choice;
+                button.className = "choice";
+                button.onclick = () => checkAnswer(choice, data.answer);
+                choicesDiv.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selected, correct) {
+            alert(selected === correct ? "Correct!" : "Wrong!");
+            currentQuestion++;
+            fetchQuestion();
+        }
+
+        fetchQuestion();
+    </script>
+</body>
+</html>
