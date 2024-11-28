@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +47,7 @@
             document.getElementById("question").textContent = data.question;
             const choicesDiv = document.getElementById("choices");
             choicesDiv.innerHTML = ""; // Clear previous choices
-            data.choices.forEach((choice, index) => {
+            data.choices.forEach(choice => {
                 const button = document.createElement("button");
                 button.textContent = choice;
                 button.className = "choice";

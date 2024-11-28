@@ -1,0 +1,104 @@
+
+
+[
+    {
+        "question": "What is the capital of France?",
+        "choices": ["Berlin", "Madrid", "Paris", "Rome"],
+        "answer": "Paris"
+    },
+    {
+        "question": "Which planet is known as the Red Planet?",
+        "choices": ["Earth", "Mars", "Jupiter", "Saturn"],
+        "answer": "Mars"
+    },
+    {
+        "question": "What is the chemical symbol for water?",
+        "choices": ["H2O", "O2", "CO2", "HO2"],
+        "answer": "H2O"
+    },
+    {
+        "question": "Who wrote 'To Kill a Mockingbird'?",
+        "choices": ["Harper Lee", "Mark Twain", "Ernest Hemingway", "F. Scott Fitzgerald"],
+        "answer": "Harper Lee"
+    },
+    {
+        "question": "What is the largest ocean on Earth?",
+        "choices": ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+        "answer": "Pacific Ocean"
+    },
+    {
+        "question": "Which gas do plants primarily use for photosynthesis?",
+        "choices": ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+        "answer": "Carbon Dioxide"
+    },
+    {
+        "question": "What is the square root of 64?",
+        "choices": ["6", "7", "8", "9"],
+        "answer": "8"
+    },
+    {
+        "question": "Who painted the Mona Lisa?",
+        "choices": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet"],
+        "answer": "Leonardo da Vinci"
+    },
+    {
+        "question": "What is the hardest natural substance on Earth?",
+        "choices": ["Gold", "Iron", "Diamond", "Platinum"],
+        "answer": "Diamond"
+    },
+    {
+        "question": "Which country is known as the Land of the Rising Sun?",
+        "choices": ["China", "Japan", "Thailand", "India"],
+        "answer": "Japan"
+    },
+    {
+        "question": "Who discovered penicillin?",
+        "choices": ["Marie Curie", "Alexander Fleming", "Isaac Newton", "Albert Einstein"],
+        "answer": "Alexander Fleming"
+    },
+    {
+        "question": "What is the capital city of Australia?",
+        "choices": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+        "answer": "Canberra"
+    },
+    {
+        "question": "Which element has the atomic number 1?",
+        "choices": ["Helium", "Hydrogen", "Oxygen", "Carbon"],
+        "answer": "Hydrogen"
+    },
+    {
+        "question": "In which year did the Titanic sink?",
+        "choices": ["1905", "1912", "1920", "1931"],
+        "answer": "1912"
+    },
+    {
+        "question": "Which organ is responsible for pumping blood in the human body?",
+        "choices": ["Brain", "Liver", "Lungs", "Heart"],
+        "answer": "Heart"
+    },
+    {
+        "question": "What is the primary language spoken in Brazil?",
+        "choices": ["Spanish", "Portuguese", "French", "Italian"],
+        "answer": "Portuguese"
+    },
+    {
+        "question": "Who developed the theory of relativity?",
+        "choices": ["Isaac Newton", "Galileo Galilei", "Albert Einstein", "Nikola Tesla"],
+        "answer": "Albert Einstein"
+    },
+    {
+        "question": "What is the largest planet in our solar system?",
+        "choices": ["Earth", "Mars", "Jupiter", "Saturn"],
+        "answer": "Jupiter"
+    },
+    {
+        "question": "Which is the smallest country in the world?",
+        "choices": ["Monaco", "Vatican City", "San Marino", "Liechtenstein"],
+        "answer": "Vatican City"
+    },
+    {
+        "question": "Which continent is known as the Dark Continent?",
+        "choices": ["Asia", "Africa", "South America", "Australia"],
+        "answer": "Africa"
+    }
+]
