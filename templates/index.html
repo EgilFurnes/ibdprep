@@ -38,7 +38,7 @@
         let currentQuestion = 0;
 
         async function fetchQuestion() {
-            const response = await fetch(`/question/${currentQuestion}`);
+            const response = await fetch("https://ibdprep.herokuapp.com/question/" + currentQuestion);
             const data = await response.json();
             displayQuestion(data);
         }
@@ -62,7 +62,7 @@
             fetchQuestion();
         }
 
-        fetchQuestion();
+        document.addEventListener("DOMContentLoaded", fetchQuestion);
     </script>
 </body>
 </html>

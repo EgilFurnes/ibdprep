@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, redirect
 import json
 
 app = Flask(__name__)
@@ -9,7 +9,7 @@ with open('questions.json') as f:
 
 @app.route('/')
 def home():
-    return render_template("index.html")
+    return redirect('/question/0')
 
 @app.route('/question/<int:id>')
 def get_question(id):
@@ -17,4 +17,4 @@ def get_question(id):
     return jsonify(question)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
