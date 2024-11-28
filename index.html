@@ -1,45 +1,140 @@
-let questions = [];
-let currentQuestionIndex = 0;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBD Prep Quiz</title>
+    <style>
+        /* Fullscreen layout and styling */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.8), rgba(240, 240, 255, 0.8)),
+                url('https://source.unsplash.com/random/1920x1080/?nature') no-repeat center/cover;
+        }
 
-// Fetch questions from the JSON file
-async function loadQuestions() {
-    try {
-        const response = await fetch("questions.json"); // Ensure this matches the path
-        questions = await response.json();
-        displayQuestion();
-    } catch (error) {
-        console.error("Error loading questions:", error);
-        document.getElementById("question").textContent = "Failed to load questions.";
-    }
-}
+        .question-container {
+            max-width: 800px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-// Display a question
-function displayQuestion() {
-    if (questions.length === 0) {
-        document.getElementById("question").textContent = "No questions available.";
-        return;
-    }
-    const currentQuestion = questions[currentQuestionIndex];
-    document.getElementById("question").textContent = currentQuestion.question;
-    const choicesDiv = document.getElementById("choices");
-    choicesDiv.innerHTML = ""; // Clear previous choices
-    currentQuestion.choices.forEach(choice => {
-        const button = document.createElement("button");
-        button.textContent = choice;
-        button.className = "choice";
-        button.onclick = () => checkAnswer(choice, currentQuestion.answer);
-        choicesDiv.appendChild(button);
-    });
-}
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
 
-// Check the user's answer
-function checkAnswer(selected, correct) {
-    alert(selected === correct ? "Correct!" : "Wrong!");
-    currentQuestionIndex = (currentQuestionIndex + 1) % questions.length; // Loop back to start
-    displayQuestion();
-}
+        #question {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
 
-// Load questions on page load
-document.addEventListener("DOMContentLoaded", loadQuestions);
+        .choices-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2x2 layout */
+            gap: 20px;
+            justify-items: center;
+        }
 
+        .choice {
+            padding: 15px;
+            background-color: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            max-width: 200px;
+            transition: all 0.3s;
+        }
 
+        .choice:hover {
+            background-color: #e0e0e0;
+        }
+
+        .choice.correct {
+            background-color: #d4edda; /* Green for correct */
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .choice.incorrect {
+            background-color: #f8d7da; /* Red for incorrect */
+            border-color: #dc3545;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="question-container">
+        <h1>IBD Prep Quiz</h1>
+        <p id="question">Loading question...</p>
+        <div class="choices-container" id="choices"></div>
+    </div>
+
+    <script>
+        let questions = [];
+        let currentQuestionIndex = 0;
+
+        // Fetch questions from the JSON file
+        async function loadQuestions() {
+            try {
+                const response = await fetch("questions.json"); // Ensure this matches the path
+                questions = await response.json();
+                displayQuestion();
+            } catch (error) {
+                console.error("Error loading questions:", error);
+                document.getElementById("question").textContent = "Failed to load questions.";
+            }
+        }
+
+        // Display a question
+        function displayQuestion() {
+            if (questions.length === 0) {
+                document.getElementById("question").textContent = "No questions available.";
+                return;
+            }
+            const currentQuestion = questions[currentQuestionIndex];
+            document.getElementById("question").textContent = currentQuestion.question;
+            const choicesDiv = document.getElementById("choices");
+            choicesDiv.innerHTML = ""; // Clear previous choices
+            currentQuestion.choices.forEach(choice => {
+                const button = document.createElement("button");
+                button.textContent = choice;
+                button.className = "choice";
+                button.onclick = () => checkAnswer(button, choice, currentQuestion.answer);
+                choicesDiv.appendChild(button);
+            });
+        }
+
+        // Check the user's answer
+        function checkAnswer(button, selected, correct) {
+            const isCorrect = selected === correct;
+            button.classList.add(isCorrect ? "correct" : "incorrect");
+
+            // Disable all buttons after answering
+            const buttons = document.querySelectorAll(".choice");
+            buttons.forEach(btn => (btn.disabled = true));
+
+            // Move to the next question after a delay
+            setTimeout(() => {
+                currentQuestionIndex = (currentQuestionIndex + 1) % questions.length; // Loop back to start
+                displayQuestion();
+            }, 1000);
+        }
+
+        // Load questions on page load
+        document.addEventListener("DOMContentLoaded", loadQuestions);
+    </script>
+</body>
+</html>
